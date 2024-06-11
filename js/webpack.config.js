@@ -7,7 +7,11 @@ module.exports = {
   name: 'your_project_name',
   entry: './src/index.jsx',
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx'],
+  },
+  stats: {
+    children: true,
+    errorDetails: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -39,18 +43,22 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpe?g|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[hash].[ext]',
-        },
-      },
-      {
-        test: /\.(png|svg|jpe?g|gif)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-        },
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash].[ext]',
+            },
+          },
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
       },
     ],
   },

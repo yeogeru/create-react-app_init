@@ -6,11 +6,16 @@ const config = require('./webpack.config.js');
 module.exports = merge(config, {
   mode: 'development',
   devtool: 'eval',
+  output: {
+    publicPath: '/',
+  },
   devServer: {
+    historyApiFallback: true,
     static: { directory: path.join(__dirname, 'public') },
     port: 3000,
     compress: true,
-    historyApiFallback: true,
+    open: true,
+    hot: true,
   },
   plugins: [new ReactRefreshWebpackPlugin()],
   module: {
